@@ -1,12 +1,13 @@
 var generateBtn = document.querySelector("#generate");
 
+var symbols = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"]
+
 var collectArray = [
   [randomLow()], 
   [randomUpper()], 
   [randomNumber()], 
   [randomSpecial()]
 ];
-
 
 // Write password to the #password input
 function writePassword() {
@@ -15,8 +16,8 @@ function writePassword() {
   passwordText.value = password;
 
   // generate password
-  var generatedPassword = function() {
-    var password = "";
+  function generatePassword() {
+    var passwordType = [];
 
     // prompt to get password length
     var lengthPrompt = window.prompt("How long would you like your password? Min 8 characters, Max 128 characters. ");
@@ -90,7 +91,6 @@ function randomNumber() {
 };
 
 function randomSpecial() {
-  const symbols = "!@#$%^&*()";
   return String.symbols[Math.floor(Math.random() * symbols.length)];
 };
 
