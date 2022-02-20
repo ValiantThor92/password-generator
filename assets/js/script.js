@@ -32,7 +32,7 @@ function writePassword() {
   passwordText.value = password;
 
   function generatePassword() {
-    var passwordTypes = Object.keys(0, 1, 2, 3);
+    var passwordTypes = [];
     var generatedPassword = "";
 
     collectDataTypes(collectObj, passwordTypes);
@@ -41,7 +41,6 @@ function writePassword() {
 
         // for function to print password 
       for (let i = 0; i < passwordLength; i++) {
-        
         generatedPassword += passwordTypes[Math.floor(Math.random() * passwordTypes.length)];
         //  lower, upper, number, special += generatedPassword += passwordTypes;
       }
@@ -52,44 +51,63 @@ function writePassword() {
 };
 
 function collectDataTypes(collectObj, passwordTypes) {
-  // prompt users for included character type
+  // prompt users for included character types
   lowerConf = window.confirm("Include lowercase characters? Press OK for yes, and CANCEL for no.");
   console.log(lowerConf);
-  // check if yes
-  if(lowerConf === true) {
-    lower = randomLow();
-    randomLow(passwordTypes.push(...collectObj + 1));
-  }
- 
+  // if not include lowercase
+  if(lowerConf !== null) {
+    // if include lowercase
+    if(lowerConf === true) {
+      lower = randomLow();
+      randomLow(passwordTypes.push(...collectObj + 1));
+    };
+  } else {
+    return passwordTypes.splice(0, passwordTypes.length);
+  };
   upperConf = window.confirm("Include uppercase characters? Press OK for yes, and CANCEL for no. ");
   console.log(upperConf);
-  if(upperConf === true) {
-    upper = randomUpper();
-    randomUpper(passwordTypes.push(...collectObj + 1));
+  // if not include uppercase
+  if(upperConf !== null) {
+    // if include uppercase
+    if(upperConf === true) {
+      upper = randomUpper();
+      randomUpper(passwordTypes.push(...collectObj + 1));
+    };
+  } else {
+    return passwordTypes.splice(0, passwordTypes.length);
   };
-  
   numericConf = window.confirm("Include numbers in your password? Press OK for yes, and CANCEL for no.");
   console.log(numericConf);
-  if(numericConf === true) {
-    number = randomNumber();
-    randomNumber(passwordTypes.push(...collectObj + 1));
+  // if not include numbers
+  if(numericConf !== null){
+    // if include numbers
+    if(numericConf === true) {
+      number = randomNumber();
+      randomNumber(passwordTypes.push(...collectObj + 1));
+    };
+  } else {
+    return passwordTypes.splice(0, passwordTypes.length)
   };
 
   specialConf = window.confirm("Include special characters? Press OK for yes, and CANCEL for no. ");
   console.log(specialConf);
-  if(specialConf === true) {
-    special = randomSpecial();
-    randomSpecial(passwordTypes.push(...collectObj + 1));
+  // if not include special characters
+  if(numericConf !== null) {
+    // if include special characters
+    if(specialConf === true) {
+      special = randomSpecial();
+      randomSpecial(passwordTypes.push(...collectObj + 1));
+    };
+  } else {
+    return passwordTypes.splice(0, passwordTypes.length)
   };
-
   // if array empty, recall collectDataTypes function
   if(passwordTypes.length === 0){
     window.alert("You must enter atleast one valid selection");
     return collectDataTypes(collectObj, passwordTypes);
-    
   };
-
 };
+
     
     
 function lengthPrompt() {
@@ -113,6 +131,5 @@ function lengthPrompt() {
 console.log(collectObj);
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
 
 
