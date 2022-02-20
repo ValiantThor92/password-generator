@@ -15,66 +15,70 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 
-  // generate password
   function generatePassword() {
-    var passwordType = [];
+    var passwordTypes = [];
+    var generatedPassword = "";
 
-    // prompt to get password length
-    var lengthPrompt = window.prompt("How long would you like your password? Min 8 characters, Max 128 characters. ");
+    collectDataTypes(collectArray, passwordTypes);
+    if (passwordTypes.length !== 0){
+      var passwordLength = lengthPrompt();
 
-    // convert answer from prompt to an actual number
-    lengthPrompt = parseInt(lengthPrompt);
-
-    // if outside length parameters, exit. else, continue w/ prompts
-    if(lengthPrompt < 8 || lengthPrompt > 128) {
-      window.alert("Invalid length input, please input a number between 8-128.");
-      lengthPrompt = parseInt.lengthPrompt;
-      return lengthPrompt;
-    } else {
-
-      // prompt users for included character type
-      var lowerConf = window.confirm("Include lowercase characters? Press OK for yes, and CANCEL for no.");
-      console.log(lowerConf);
-      while(lowerConf === true) {
-        randomLow() 
-        collectArray.push[randomLow()];
-      }
- 
-      var upperConf = window.confirm("Include uppercase characters? Press OK for yes, and CANCEL for no. ");
-      console.log(upperConf);
-      while(upperConf === true) {
-       randomUpper()  
-        collectArray.push[randomUpper()];
-      }
-  
-      var numericConf = window.confirm("Include numbers in your password? Press OK for yes, and CANCEL for no.");
-      console.log(numericConf);
-      while(numericConf === true) {
-        randomNumber();
-        collectArray.push[randomNumber()];
-      }
-
-      var specialConf = window.confirm("Include special characters? Press OK for yes, and CANCEL for no. ");
-      console.log(specialConf);
-      while(specialConf === true) {
-        randomSpecial() 
-        collectArray.push[randomSpecial()];
-      }
-  
-    
-      // for function to print password 
+        // for function to print password 
       for (var i = lengthPrompt.length; i < length; i ++) {
-        var generatedPassword = Math.floor(Math.random() * lengthPrompt.length);
-        pass += collectArray.charAt(generatedPassword + 1);
+        generatedPassword += passwordTypes[Math.floor(Math.random() * lengthPrompt.length)];
       }
-      passwordText.value = pass;
-      console.log(pass);
-      console.log(password);
-      return password;
-    };
-
+    }
+    return generatedPassword; 
   };
 };
+
+function collectDataTypes() {
+  // prompt users for included character type
+  var lowerConf = window.confirm("Include lowercase characters? Press OK for yes, and CANCEL for no.");
+  while(lowerConf === true) {
+    randomLow() 
+    collectArray.push[randomLow()];
+  }
+ 
+  var upperConf = window.confirm("Include uppercase characters? Press OK for yes, and CANCEL for no. ");
+  console.log(upperConf);
+  while(upperConf === true) {
+    randomUpper()  
+    collectArray.push[randomUpper()];
+  }
+  
+  var numericConf = window.confirm("Include numbers in your password? Press OK for yes, and CANCEL for no.");
+  console.log(numericConf);
+  while(numericConf === true) {
+    randomNumber();
+    collectArray.push[randomNumber()];
+  }
+
+  var specialConf = window.confirm("Include special characters? Press OK for yes, and CANCEL for no. ");
+  console.log(specialConf);
+  while(specialConf === true) {
+    randomSpecial() 
+    collectArray.push[randomSpecial()];
+  }
+} 
+    
+    
+function lengthPrompt() {
+  // prompt user for desired length
+  passwordLength = window.prompt("How long would you like your password? Min 8 characters, Max 128 characters. ");
+  // if outside length parameters, alert to reinput
+  if(passwordLength !==null){
+    parseInt(passwordLength)
+    if(isNaN(passwordLength) || (passwordLength < 8 || passwordLength > 128)) {
+      window.alert("Invalid length input, please input a number between 8-128.");
+      lengthPrompt();
+    }
+    return passwordLength;
+  } else {
+    return;
+  }
+};
+
 
 // charactar randomizer functions
 
