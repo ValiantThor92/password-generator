@@ -1,5 +1,11 @@
 var generateBtn = document.querySelector("#generate");
 
+var passwordTypes = [];
+var isLowerTrue = false;
+var isUpperTrue = false;
+var isNumberTrue = false;
+var isSpecialTrue = false;
+
 // character code randomizer functions
 function randomLow() {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
@@ -16,14 +22,6 @@ function randomNumber() {
 function randomSpecial() {
   return String.fromCharCode(Math.floor(Math.random() * 15) + 33);
 };
-  
-const collectObj = {
-  lower: randomLow(),
-  upper: randomUpper(),
-  number: randomNumber(),
-  special: randomSpecial()
-};
-
 
 // Write password to the #password input
 function writePassword() {
@@ -32,25 +30,41 @@ function writePassword() {
   passwordText.value = password;
 
   function generatePassword() {
-    var passwordTypes = [];
     var generatedPassword = "";
 
-    collectDataTypes(collectObj, passwordTypes);
-    if (passwordTypes.length !== 0){
-      var passwordLength = lengthPrompt();
+    collectDataTypes();
+    var passwordLength = lengthPrompt();
 
-        // for function to print password 
-      for (let i = 0; i < passwordLength; i++) {
-        generatedPassword += passwordTypes[Math.floor(Math.random() * passwordTypes.length)];
-        //  lower, upper, number, special += generatedPassword += passwordTypes;
+    if (passwordLength !== 0){
+      // for function to print password 
+      for (let i = 0; i < passwordLength; i = i) {
+        var pass = Math.floor(Math.random() * 4);
+        if(pass === 0 && isLowerTrue === true) {
+          generatedPassword += randomLow();
+          i ++;
+        }
+
+        else if(pass === 1 && isUpperTrue === true) {
+          generatedPassword += randomUpper();
+          i ++;
+        }
+
+        else if(pass === 2 && isNumberTrue === true) {
+          generatedPassword += randomNumber();
+          i ++;
+        }
+
+        else if(pass === 3 && isSpecialTrue === true) {
+          generatedPassword += randomSpecial();
+          i ++;
+        }
       }
     }
-    console.log(generatedPassword);
-    return generatedPassword; 
+  return generatedPassword; 
   };
 };
 
-function collectDataTypes(collectObj, passwordTypes) {
+function collectDataTypes() {
   // prompt users for included character types
   lowerConf = window.confirm("Include lowercase characters? Press OK for yes, and CANCEL for no.");
   console.log(lowerConf);
@@ -58,35 +72,30 @@ function collectDataTypes(collectObj, passwordTypes) {
   if(lowerConf !== null) {
     // if include lowercase
     if(lowerConf === true) {
-      lower = randomLow();
-      randomLow(passwordTypes.push(...collectObj + 1));
+      isLowerTrue = true;
     };
-  } else {
-    return passwordTypes.splice(0, passwordTypes.length);
   };
+  
+  
   upperConf = window.confirm("Include uppercase characters? Press OK for yes, and CANCEL for no. ");
   console.log(upperConf);
   // if not include uppercase
   if(upperConf !== null) {
     // if include uppercase
     if(upperConf === true) {
-      upper = randomUpper();
-      randomUpper(passwordTypes.push(...collectObj + 1));
+      isUpperTrue = true;
     };
-  } else {
-    return passwordTypes.splice(0, passwordTypes.length);
   };
+    
+  
   numericConf = window.confirm("Include numbers in your password? Press OK for yes, and CANCEL for no.");
   console.log(numericConf);
   // if not include numbers
   if(numericConf !== null){
     // if include numbers
     if(numericConf === true) {
-      number = randomNumber();
-      randomNumber(passwordTypes.push(...collectObj + 1));
+      isNumberTrue = true;
     };
-  } else {
-    return passwordTypes.splice(0, passwordTypes.length)
   };
 
   specialConf = window.confirm("Include special characters? Press OK for yes, and CANCEL for no. ");
@@ -95,27 +104,24 @@ function collectDataTypes(collectObj, passwordTypes) {
   if(numericConf !== null) {
     // if include special characters
     if(specialConf === true) {
-      special = randomSpecial();
-      randomSpecial(passwordTypes.push(...collectObj + 1));
+      isSpecialTrue = true;
     };
-  } else {
-    return passwordTypes.splice(0, passwordTypes.length)
   };
+
   // if array empty, recall collectDataTypes function
-  if(passwordTypes.length === 0){
+  if(passwordTypes.length === 0 && (isUpperTrue || isLowerTrue || isNumberTrue || isSpecialTrue) === false) {
     window.alert("You must enter atleast one valid selection");
-    return collectDataTypes(collectObj, passwordTypes);
+    return collectDataTypes();
   };
 };
 
-    
-    
 function lengthPrompt() {
   // prompt user for desired length
-  passwordLength = prompt("How long would you like your password? Min 8 characters, Max 128 characters. ");
+  passwordLength = window.prompt("How long would you like your password? Min 8 characters, Max 128 characters. ");
   // if outside length parameters, alert to reinput
   if(passwordLength !==null){
-    parseInt(passwordLength)
+    console.log("reached parseint");
+    passwordLength = parseInt(passwordLength);
     if(isNaN(passwordLength) || (passwordLength < 8 || passwordLength > 128)) {
       window.alert("Invalid length input, please input a number between 8-128.");
       lengthPrompt();
@@ -128,7 +134,6 @@ function lengthPrompt() {
   }
 };
 
-console.log(collectObj);
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
