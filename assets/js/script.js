@@ -62,14 +62,12 @@ function collectDataTypes() {                                // Function to prom
     };
   };
   
-  
   upperConf = window.confirm("Include uppercase characters? Press OK for yes, and CANCEL for no. ");
   if(upperConf !== null) {                                  // If "upperConf" doesNot equal the value of null
     if(upperConf === true) {                                // If "upperConf" equals the boolean value true
       isUpperTrue = true;                                   // Set the variable "isUpperTrue" to the boolean value true
     };
   };
-    
   
   numericConf = window.confirm("Include numbers in your password? Press OK for yes, and CANCEL for no.");
   if(numericConf !== null) {                                // If "numericConf" doesNot equal the value of null
