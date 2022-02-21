@@ -46,6 +46,9 @@ width= 400px;
 
 ## Link
 
-[link])
+[link](https://valiantthor92.github.io/password-generator/)
 
 ## Credits
+
+javascript designed and created by Travis Nelson.<br />
+UofO fullstack software development bootcamp student 2022.<br />
