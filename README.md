@@ -36,11 +36,7 @@ PASSWORD-GENERATOR<br />
 This program uses JavaScript to dynamically generate and output a password based on user input criteria
 ## Screenshots
 
-<img 
-src="./assets/images/password-generator.jpg"
-height= 400px;
-width= 400px;
->
+<img src="./assets/images/password-generator.jpg" height= 400px; width= 400px;>
 
 
 
